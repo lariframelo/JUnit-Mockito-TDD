@@ -6,13 +6,25 @@ import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.utils.DataUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ErrorCollector;
 
 import java.util.Date;
 
+import static br.ce.wcaquino.utils.DataUtils.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 public class LocacaoServiceTest {
+
+    @Rule
+    public ErrorCollector error = new ErrorCollector();
+
+
+
     @Test
-    public void teste() {
+    public void testeLocacao() {
         //cenario
         LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuario 1");
@@ -22,8 +34,8 @@ public class LocacaoServiceTest {
         Locacao locacao = service.alugarFilme(usuario, filme);
 
         //verificação
-        Assert.assertThat(locacao.getValor(), CoreMatchers.is(5.0));
-        Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(),new Date()));
-        Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(),DataUtils.obterDataComDiferencaDias(1)));
+        error.checkThat(locacao.getValor(), is(5.0));
+        error.checkThat(isMesmaData(locacao.getDataLocacao(),new Date()));
+        error.checkThat(isMesmaData(locacao.getDataRetorno(), obterDataComDiferencaDias(1)));
     }
 }
