@@ -27,7 +27,7 @@ public class AssertTest {
         Usuario u3 = null;
 
         Assert.assertEquals(u1,u2);
-        Assert.assertSame(u1,u2);
+        Assert.assertSame(u1,u1);
         Assert.assertNull(u3);
     }
 }

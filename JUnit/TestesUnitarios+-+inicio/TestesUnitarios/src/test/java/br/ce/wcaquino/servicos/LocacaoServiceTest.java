@@ -4,6 +4,7 @@ import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.utils.DataUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class LocacaoServiceTest {
         Locacao locacao = service.alugarFilme(usuario, filme);
 
         //verificação
-        Assert.assertTrue(locacao.getValor() == 5.0);
+        Assert.assertThat(locacao.getValor(), CoreMatchers.is(5.0));
         Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(),new Date()));
         Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(),DataUtils.obterDataComDiferencaDias(1)));
     }
