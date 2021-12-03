@@ -13,9 +13,7 @@ import java.util.Date;
 
 import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
@@ -25,11 +23,23 @@ import br.ce.wcaquino.entidades.Usuario;
 
 public class LocacaoServiceTest {
 
+    private LocacaoService service;
     @Rule
     public ErrorCollector error = new ErrorCollector();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Before
+    public void setup() {
+        LocacaoService service;
+        service = new LocacaoService();
+
+    }
+    @After
+    public void tearDown() {
+        System.out.println("After");
+    }
 
     @Test
     public void testeLocacao() throws Exception {
@@ -37,7 +47,7 @@ public class LocacaoServiceTest {
         LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuario 1");
         Filme filme = new Filme("Filme 1", 1, 5.0);
-
+        
         //acao
         Locacao locacao = service.alugarFilme(usuario, filme);
 
@@ -61,8 +71,8 @@ public class LocacaoServiceTest {
     @Test
     public void testLocacao_usuarioVazio() throws FilmeSemEstoqueException {
         //cenario
-        LocacaoService service = new LocacaoService();
         Filme filme = new Filme("Filme 2", 1, 4.0);
+        LocacaoService service = new LocacaoService();
 
         //ação
         try {
@@ -79,8 +89,8 @@ public class LocacaoServiceTest {
     @Test
     public void testlocacao_Filmevazio() throws FilmeSemEstoqueException, LocadoraException {
         //cenario
-        LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuario 1");
+        LocacaoService service = new LocacaoService();
 
         exception.expect(LocadoraException.class);
         exception.expectMessage("Filme vazio");
