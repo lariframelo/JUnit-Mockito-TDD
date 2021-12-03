@@ -1,6 +1,7 @@
 package br.ce.wcaquino.entidades;
 
 import java.util.Date;
+import java.util.List;
 
 public class Locacao {
 
